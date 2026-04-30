@@ -30,3 +30,5 @@ Fully responsive layout for different screen sizes.
 Frontend: Vanilla JavaScript, HTML5 Canvas, and CSS.
 
 Computer Vision: Google MediaPipe Tasks Vision API (Hand Landmarker).
+
+**Made by Srijith** | Built with the help of Claude AI 🤖
