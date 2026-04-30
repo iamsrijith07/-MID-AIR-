@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MID AIR — Gesture Drawing</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Webcam Video (hidden) -->
+  <video id="webcam" autoplay playsinline muted></video>
+
+  <!-- Drawing Canvas -->
+  <canvas id="drawCanvas"></canvas>
+
+  <!-- Finger cursor indicator -->
+  <div id="fingerCursor"></div>
+
+  <!-- ============ UI OVERLAY ============ -->
+  <div id="ui-overlay">
+
+    <!-- TOP BAR -->
+    <header id="topbar">
+      <div class="logo">
+        <span class="logo-mid">MID</span>
+        <span class="logo-air">AIR</span>
+        <span class="logo-tag">gesture canvas</span>
+      </div>
+      <div id="status-badge">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Initializing…</span>
+      </div>
+    </header>
+
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar">
+      <div class="sidebar-section">
+        <label class="sidebar-label">COLOR</label>
+        <div id="colorPalette">
+          <button class="color-btn active" data-color="#00FFFF" style="--c:#00FFFF" title="Cyan"></button>
+          <button class="color-btn" data-color="#FF00FF" style="--c:#FF00FF" title="Magenta"></button>
+          <button class="color-btn" data-color="#FFFF00" style="--c:#FFFF00" title="Yellow"></button>
+          <button class="color-btn" data-color="#00FF88" style="--c:#00FF88" title="Neon Green"></button>
+          <button class="color-btn" data-color="#FF4444" style="--c:#FF4444" title="Red"></button>
+          <button class="color-btn" data-color="#FFFFFF" style="--c:#FFFFFF" title="White"></button>
+          <button class="color-btn" data-color="#FF9900" style="--c:#FF9900" title="Orange"></button>
+          <button class="color-btn" data-color="#AA00FF" style="--c:#AA00FF" title="Purple"></button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <label class="sidebar-label">BRUSH</label>
+        <div class="brush-sizes">
+          <button class="brush-btn" data-size="3" title="Fine">·</button>
+          <button class="brush-btn active" data-size="6" title="Medium">○</button>
+          <button class="brush-btn" data-size="12" title="Bold">◯</button>
+          <button class="brush-btn" data-size="22" title="Thick">⬤</button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <label class="sidebar-label">GLOW</label>
+        <div class="glow-toggle-row">
+          <span class="glow-label">OFF</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="glowToggle" checked />
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="glow-label">ON</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <button id="clearBtn" class="action-btn clear-btn">CLEAR</button>
+        <button id="screenshotBtn" class="action-btn screenshot-btn">SAVE</button>
+      </div>
+    </aside>
+
+    <!-- BOTTOM ACTION BAR -->
+    <div id="bottomBar">
+      <div class="gesture-indicators">
+        <div class="gesture-chip" id="chip-draw">
+          <span class="chip-icon">☝️</span>
+          <span>DRAW</span>
+        </div>
+        <div class="gesture-chip" id="chip-erase">
+          <span class="chip-icon">🖐️</span>
+          <span>ERASE</span>
+        </div>
+        <div class="gesture-chip" id="chip-grab">
+          <span class="chip-icon">🤌</span>
+          <span>GRAB</span>
+        </div>
+        <div class="gesture-chip" id="chip-idle">
+          <span class="chip-icon">✊</span>
+          <span>IDLE</span>
+        </div>
+      </div>
+      <div id="currentAction">
+        <span class="action-label">STATE:</span>
+        <span id="currentState">IDLE</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <span>MID</span><span class="air-accent">AIR</span>
+      </div>
+      <div class="loader-bar-wrap">
+        <div id="loaderBar"></div>
+      </div>
+      <p id="loaderMsg">Loading MediaPipe…</p>
+      <p class="loader-hint">Allow webcam access when prompted</p>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
